@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const Link = require('../models/links');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -15,12 +16,15 @@ function generateRandomString() {
   return text;
 }
 
-router.post('/new', function(req, res, next) {
+router.post('/new', async (req, res, next)=> {
   const url = req.body.url;
-  console.log(url);
   const short = generateRandomString();
-    res.send('http://localhost:3000/'+short);
-}
-);
+  const result = await Link.create({
+    url,
+    short
+ });
+  res.render('stats', result)
+  console.log(result);
+});
 
 module.exports = router;
