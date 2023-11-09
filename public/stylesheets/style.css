@@ -32,3 +32,17 @@ form {
   border-radius: 5px;
   text-align: center;
 }
+
+.statsRow{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.statsBox{
+  flex: 0 0 30%;
+  padding: 2rem 2rem 1rem 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
