@@ -2,6 +2,24 @@ var express = require('express');
 var router = express.Router();
 const Link = require('../models/links');
 
+
+router.get('/:short', async (req, res, next)=> {
+  const short = req.params.short;
+  const result = await Link.findOne({
+    where: {
+      short
+    }
+  });
+  if(result){
+    res.redirect(result.dataValues.url);
+  }else{
+    res.status(404).send('Not Found');
+  }
+}
+);
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Encurtador URL' });
