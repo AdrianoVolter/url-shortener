@@ -24,7 +24,7 @@ router.post('/new', async (req, res, next)=> {
     short
  });
   
-  res.render('stats', result)
+  res.render('stats', result.dataValues);
   
 });
 
