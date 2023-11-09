@@ -23,8 +23,9 @@ router.post('/new', async (req, res, next)=> {
     url,
     short
  });
+  
   res.render('stats', result)
-  console.log(result);
+  
 });
 
 module.exports = router;
