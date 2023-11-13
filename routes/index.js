@@ -1,19 +1,10 @@
 var express = require("express");
 var router = express.Router();
 const Link = require("../models/links");
+const stats = require("../controllers/short.controller")
 
 
-router.get("/:short/stats", async (req, res, next) => {
-  const short = req.params.short;
-  const result = await Link.findOne({
-    where: {
-      short,
-    },
-  });
- if(!result)return res.status(404).send("Not Found");
-  res.render("stats", result.dataValues);
-}
-);
+router.get("/stats/:short", stats);
 
 router.get("/:short", async (req, res, next) => {
   const short = req.params.short;
