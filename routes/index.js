@@ -4,7 +4,8 @@ const Link = require("../models/links");
 const stats = require("../controllers/short.controller")
 
 
-router.get("/stats/:short", stats);
+
+router.get("/:short/stats", stats.stats);
 
 router.get("/:short", async (req, res, next) => {
   const short = req.params.short;
