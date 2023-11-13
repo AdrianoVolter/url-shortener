@@ -1,50 +1,13 @@
 var express = require("express");
 var router = express.Router();
-const Link = require("../models/links");
 const stats = require("../controllers/short.controller")
-
-
 
 router.get("/:short/stats", stats.stats);
 
-router.get("/:short", async (req, res, next) => {
-  const short = req.params.short;
-  const result = await Link.findOne({
-    where: {
-      short,
-    },
-  });
-  if (!result) return res.status(404).send("Not Found");
+router.get("/:short", stats.getShort);
 
-  result.hits ++;
-  await result.save();
-  res.redirect(result.url);
+router.get("/", stats.homePage);
 
-});
-
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Encurtador URL" });
-});
-
-function generateRandomString() {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (var i = 0; i < 6; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  return text;
-}
-
-router.post("/new", async (req, res, next) => {
-  const url = req.body.url;
-  const short = generateRandomString();
-  const result = await Link.create({
-    url,
-    short,
-  });
-
-  res.render("stats", result.dataValues);
-});
+router.post("/new", stats.new);
 
 module.exports = router;
